@@ -1,0 +1,47 @@
+@model IEnumerable<Fashioninventorysystem.Models.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h1>Products</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th>Brand</th>
+            <th>Color</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Product_name</td>
+                <td>@item.Product_description</td>
+                <td>@item.Product_category</td>
+                <td>@item.Product_quantity</td>
+                <td>@item.Size</td>
+                <td>@item.Price</td>
+                <td>@item.Brand</td>
+                <td>@item.Color</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Product_id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Product_id" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Product_id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
