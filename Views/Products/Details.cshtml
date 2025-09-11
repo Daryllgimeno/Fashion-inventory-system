@@ -6,36 +6,38 @@
 
 <h1>Details</h1>
 
+<h4>Product</h4>
+<hr />
+<dl class="row">
+    <dt class="col-sm-2">Name</dt>
+    <dd class="col-sm-10">@Model.Product_name</dd>
+
+    <dt class="col-sm-2">Description</dt>
+    <dd class="col-sm-10">@Model.Product_description</dd>
+
+    <dt class="col-sm-2">Category</dt>
+    <dd class="col-sm-10">@Model.Product_category</dd>
+
+    <dt class="col-sm-2">Quantity</dt>
+    <dd class="col-sm-10">@Model.Product_quantity</dd>
+
+    <dt class="col-sm-2">Size</dt>
+    <dd class="col-sm-10">@Model.Size</dd>
+
+    <dt class="col-sm-2">Price</dt>
+    <dd class="col-sm-10">@Model.Price</dd>
+
+    <dt class="col-sm-2">Brand</dt>
+    <dd class="col-sm-10">@Model.Brand</dd>
+
+    <dt class="col-sm-2">Color</dt>
+    <dd class="col-sm-10">
+        <span style="display:inline-block;width:20px;height:20px;background-color:@Model.Color;border:1px solid #000;"></span>
+        @Model.Color
+    </dd>
+</dl>
+
 <div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Product_name)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Product_name)</dd>
-
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Product_description)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Product_description)</dd>
-
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Product_category)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Product_category)</dd>
-
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Product_quantity)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Product_quantity)</dd>
-
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Size)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Size)</dd>
-
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Price)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Price)</dd>
-
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Brand)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Brand)</dd>
-
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Color)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Color)</dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Product_id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-controller="Products" asp-route-id="@Model.Product_id" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" asp-controller="Products" class="btn btn-secondary">Back to List</a>
 </div>

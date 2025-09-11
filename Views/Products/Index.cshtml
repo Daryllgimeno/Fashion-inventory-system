@@ -7,10 +7,12 @@
 <h1>Products</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal">
+        Create New
+    </button>
 </p>
 
-<table class="table table-striped">
+<table class="table table-striped" style="background-color:#f8f0f5;">
     <thead>
         <tr>
             <th>Name</th>
@@ -35,13 +37,156 @@
                 <td>@item.Size</td>
                 <td>@item.Price</td>
                 <td>@item.Brand</td>
-                <td>@item.Color</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Product_id" class="btn btn-sm btn-warning">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.Product_id" class="btn btn-sm btn-info">Details</a>
+                    <span style="display:inline-block;width:20px;height:20px;background-color:@item.Color;border:1px solid #000;"></span>
+                    @item.Color
+                </td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal-@item.Product_id">Edit</button>
+                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#detailsModal-@item.Product_id">Details</button>
                     <a asp-action="Delete" asp-route-id="@item.Product_id" class="btn btn-sm btn-danger">Delete</a>
                 </td>
             </tr>
+
+            <div class="modal fade" id="editModal-@item.Product_id" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit Product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form asp-action="Edit" asp-controller="Products" asp-route-id="@item.Product_id" method="post">
+                                <input type="hidden" name="Product_id" value="@item.Product_id" />
+                                <div class="form-group mb-2">
+                                    <label>Name</label>
+                                    <input type="text" name="Product_name" value="@item.Product_name" class="form-control" />
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label>Description</label>
+                                    <input type="text" name="Product_description" value="@item.Product_description" class="form-control" />
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label>Category</label>
+                                    <select class="form-control" name="Product_category">
+                                        <!option value="Shoes" @(item.Product_category == "Shoes" ? "selected" : "")>Shoes</!option>
+                                        <!option value="Clothes" @(item.Product_category == "Clothes" ? "selected" : "")>Clothes</!option>
+                                        <!option value="Accessories" @(item.Product_category == "Accessories" ? "selected" : "")>Accessories</!option>
+                                        <!option value="Bags" @(item.Product_category == "Bags" ? "selected" : "")>Bags</!option>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label>Quantity</label>
+                                    <input type="number" name="Product_quantity" value="@item.Product_quantity" class="form-control" />
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label>Size</label>
+                                    <input type="text" name="Size" value="@item.Size" class="form-control" />
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label>Price</label>
+                                    <input type="number" step="0.01" name="Price" value="@item.Price" class="form-control" />
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label>Brand</label>
+                                    <input type="text" name="Brand" value="@item.Brand" class="form-control" />
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label>Color</label>
+                                    <input type="color" name="Color" value="@item.Color" class="form-control form-control-color" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-info">Save</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="detailsModal-@item.Product_id" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Product Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Name:</strong> @item.Product_name</p>
+                            <p><strong>Description:</strong> @item.Product_description</p>
+                            <p><strong>Category:</strong> @item.Product_category</p>
+                            <p><strong>Quantity:</strong> @item.Product_quantity</p>
+                            <p><strong>Size:</strong> @item.Size</p>
+                            <p><strong>Price:</strong> @item.Price</p>
+                            <p><strong>Brand:</strong> @item.Brand</p>
+                            <p><strong>Color:</strong> <span style="display:inline-block;width:20px;height:20px;background-color:@item.Color;border:1px solid #000;"></span> @item.Color</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
     </tbody>
 </table>
+
+<div class="modal fade" id="createModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" asp-controller="Products" method="post">
+                    <div class="form-group mb-2">
+                        <label>Name</label>
+                        <input type="text" name="Product_name" class="form-control" />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label>Description</label>
+                        <input type="text" name="Product_description" class="form-control" />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label>Category</label>
+                        <select class="form-control" name="Product_category">
+                            <!option value="">-- Select Category --</!option>
+                            <!option value="Shoes">Shoes</!option>
+                            <!option value="Clothes">Clothes</!option>
+                            <!option value="Accessories">Accessories</!option>
+                            <!option value="Bags">Bags</!option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label>Quantity</label>
+                        <input type="number" name="Product_quantity" class="form-control" />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label>Size</label>
+                        <input type="text" name="Size" class="form-control" />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label>Price</label>
+                        <input type="number" step="0.01" name="Price" class="form-control" />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label>Brand</label>
+                        <input type="text" name="Brand" class="form-control" />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label>Color</label>
+                        <input type="color" name="Color" class="form-control form-control-color" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
