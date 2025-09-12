@@ -2,7 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<FashionContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("FashionContext") ?? throw new InvalidOperationException("Connection string 'FashionContext' not found.")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("FashionContext")
+        ?? throw new InvalidOperationException("Connection string 'FashionContext' not found.")
+    )
+);
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

@@ -1,16 +1,22 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Fashioninventorysystem.Models;
 
-    public class FashionContext : DbContext
+public class FashionContext : DbContext
+{
+    public FashionContext(DbContextOptions<FashionContext> options)
+        : base(options)
     {
-        public FashionContext (DbContextOptions<FashionContext> options)
-            : base(options)
-        {
-        }
-
-        public DbSet<Fashioninventorysystem.Models.Product> Product { get; set; } = default!;
     }
+
+    public DbSet<Product> Product { get; set; } = default!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Product>()
+            .Property(p => p.Price)
+            .HasColumnType("decimal(18,2)");
+
+        base.OnModelCreating(modelBuilder);
+    }
+}
